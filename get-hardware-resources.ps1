@@ -18,7 +18,7 @@ while ($true) {
   Add-Content -Path .\index.html -Value ("<br />")
   Add-Content -Path .\index.html -Value ($freeText)
   Add-Content -Path .\index.html -Value ("<br />")
-  Add-Content -Path .\index.html -Value ("Heavy Memory Services")
+  Add-Content -Path .\index.html -Value ("Heavy Memory Services: <br />")
   Add-Content -Path .\index.html -Value (
     Get-WmiObject WIN32_PROCESS | Sort-Object -Property ws -Descending | Select-Object -first 5 Name,WS
   )
