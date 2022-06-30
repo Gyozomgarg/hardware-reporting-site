@@ -11,7 +11,7 @@ while ($true) {
   #Set the result text
   $resultText = "$ServiceName is using $MemSize GB of Memory"
 
-  $storageFree = (get-ciminstance Win32_OperatingSystem | % FreePhysicalMemory) / 1000034
+  $storageFree = (get-ciminstance Win32_OperatingSystem | % FreePhysicalMemory) / 1000000
   $freeText = "There is $storageFree GB of Memory Remaining"
 
   Add-Content -Path .\index.html -Value ($resultText)
