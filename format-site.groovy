@@ -64,7 +64,7 @@ memListFile.withReader { reader ->
 
   line = reader.readLine()
   memList = memList + line.toString() //4th
-  
+
   line = reader.readLine()
   memList = memList + line.toString() //5th
 }
@@ -95,7 +95,12 @@ Charset charset = StandardCharsets.UTF_8;
 Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING)
 
 String content = new String(Files.readAllBytes(sourcePath), charset);
-def remainingMem = ((totalMem-freeMem)/totalMem)*100
+double remainingMem = ((totalMem-freeMem)/totalMem)*100
+String temp = String.format("%.2f",remainingMem)
+try {
+  remainingMem = Double.parseDouble(temp);
+} catch (NumberFormatException e) {}
+
 content = content.replaceAll( "~remainingMem",  String.valueOf(remainingMem))
 def memColor
 if (remainingMem < 50) {
