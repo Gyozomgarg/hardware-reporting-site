@@ -1,0 +1,5 @@
+@{Name=Memory Compression; WS=3435429888}
+@{Name=vmmem; WS=1998540800}
+@{Name=javaw.exe; WS=1477394432}
+@{Name=Discord.exe; WS=506425344}
+@{Name=MsMpEng.exe; WS=415903744}

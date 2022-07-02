@@ -6,26 +6,47 @@ while ($true) {
   $MemBySize = $MemWorkingSet/1GB
   $MemSize = [int]$MemBySize
   #Set the result text
-  $resultText = "$ServiceName is using $MemSize GB of Memory"
+  $serviceMem = "$ServiceName is using $MemSize GB of Memory"
 
   $storageFree = (get-ciminstance Win32_OperatingSystem | % FreePhysicalMemory) / 1000000
   $freeText = "There is $storageFree GB of Memory Remaining"
 
+  $totalMemory = ((Get-CimInstance Win32_PhysicalMemory | Measure-Object -Property capacity -Sum).sum /1gb)
 
   $memList = (Get-WmiObject WIN32_PROCESS | Sort-Object -Property ws -Descending | Select-Object -first 5 Name,WS)
   $cpuLoad = (Get-WmiObject Win32_Processor | Select LoadPercentage)
 
-  Clear-Content .\index.html
-  Add-Content -Path .\index.html -Value ( "Memory <br />" )
-  Add-Content -Path .\index.html -Value ($resultText)
-  Add-Content -Path .\index.html -Value ("<br />")
-  Add-Content -Path .\index.html -Value ($freeText)
-  Add-Content -Path .\index.html -Value ("<br />")
-  Add-Content -Path .\index.html -Value ("Heavy Memory Services: <br />")
-  Add-Content -Path .\index.html -Value ($memList)
-  Add-Content -Path .\index.html -Value ( "<br /><br /> CPU <br />" )
-  Add-Content -Path .\index.html -Value ($cpuLoad)
-  Write-Output "Sleeping"
-  Start-Sleep -Seconds 2
+  # Clear-Content .\index.html
+  Clear-Content .\files\serviceMem.txt
+  Clear-Content .\files\freeText.txt
+  Clear-Content .\files\totalMemory.txt
+  Clear-Content .\files\memList.txt
+  Clear-Content .\files\cpuLoad.txt
+
+
+  # Add-Content -Path .\index.html -Value ( "Memory <br />" )
+  # Add-Content -Path .\index.html -Value ($serviceMem)
+  Add-Content -Path .\files\serviceMem.txt -Value ($ServiceName)
+  Add-Content -Path .\files\serviceMem.txt -Value ($MemSize)
+
+  # Add-Content -Path .\index.html -Value ("<br />")
+  # Add-Content -Path .\index.html -Value ($freeText)
+  Add-Content -Path .\files\freeText.txt -Value ($storageFree)
+  Add-Content -Path .\files\totalMemory.txt -Value ($totalMemory)
+
+  # Add-Content -Path .\index.html -Value ("<br />")
+  # Add-Content -Path .\index.html -Value ("Heavy Memory Services: <br />")
+  # Add-Content -Path .\index.html -Value ($memList)
+  Add-Content -Path .\files\memList.txt -Value ($memList)
+
+
+  # Add-Content -Path .\index.html -Value ( "<br /><br /> CPU <br />" )
+  # Add-Content -Path .\index.html -Value ($cpuLoad)
+  Add-Content -Path .\files\cpuLoad.txt -Value ($cpuLoad)
+
+  groovy format-site.groovy
+
+  Write-Output "Sleeping for 5 seconds"
+  Start-Sleep -Seconds 5
   Write-Output "========"
 }

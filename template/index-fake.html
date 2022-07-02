@@ -1,0 +1,29 @@
+<body>
+  <h1>Memory Usage</h1>
+  <div style="width: 100%;">
+    <h3>2 GB Used by vmmem</h3>
+    <h3>18.521892 GB Free</h3>
+    <div style="width: 50%;background-color: red;border-radius: 10px;text-align: center;">50%</div>
+  </div>
+  <h1>CPU Usage</h1>
+  <div style="width: 100%;">
+    <div style="width: 22%;background-color: cyan;border-radius: 10px;text-align: center;">22%</div>
+  </div>
+  <h1>Services by Memory Usage</h1>
+  <div>
+    <p>blahblahblah</p>
+  </div>
+  <h3>This site refreshed every 5 seconds</h3>
+  <!-- <script>setTimeout(() => document.location.reload(), 5000)</script> -->
+  <script type="text/javascript">
+    var timeleft = 4;
+    var downloadTimer = setInterval(function(){
+      if(timeleft <= 0){
+        clearInterval(downloadTimer);
+      }
+      document.getElementById("progressBar").value = 4 - timeleft;
+      timeleft -= 1;
+    }, 1000);
+  </script>
+  <progress value="0" max="4" id="progressBar"></progress>
+</body>
