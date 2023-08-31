@@ -47,6 +47,16 @@ while ($true) {
   groovy format-site.groovy
 
   Write-Output "Sleeping for 5 seconds"
-  Start-Sleep -Seconds 5
-  Write-Output "========"
+  Start-Sleep -Seconds 1
+  Write-Output "."
+  Start-Sleep -Seconds 1
+  Write-Output ".."
+  Start-Sleep -Seconds 1
+  Write-Output "..."
+  Start-Sleep -Seconds 1
+  Write-Output "...."
+  Start-Sleep -Seconds 1
+  Write-Output "....."
+  Clear-Host
+  Write-Host "Refreshed!"
 }
